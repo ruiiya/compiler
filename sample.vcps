@@ -1,9 +1,26 @@
-<program> : void main ( ) <compound_statement> 
-<compound_statement> : { <expression_statement> } 
-<expression_statement> : <additive_expression> ; 
-<additive_expression> : 1 <additive_expression_temp> 
-<additive_expression_temp> : + 2 <additive_expression_temp> 
-<additive_expression_temp> : - 3 <additive_expression_temp> 
-<additive_expression_temp> : + <multiplicative_expression> 
-<multiplicative_expression> : 4 <multiplicative_expression_temp> 
-<multiplicative_expression_temp> : / 5 
+<program>
+├── void
+├── main
+├── (
+├── )
+└── <compound_statement>
+	├── {
+	├── <expression_statement>
+	│	├── <additive_expression>
+	│	│	├── 1
+	│	│	└── <additive_expression_temp>
+	│	│		├── +
+	│	│		├── 2
+	│	│		└── <additive_expression_temp>
+	│	│			├── -
+	│	│			├── 3
+	│	│			└── <additive_expression_temp>
+	│	│				├── +
+	│	│				└── <multiplicative_expression>
+	│	│					├── 4
+	│	│					└── <multiplicative_expression_temp>
+	│	│						├── /
+	│	│						└── 5
+	│	└── ;
+	└── }
+

@@ -14,6 +14,37 @@ namespace xd {
         string value;
         bool is_epsilon{true};
         vector<shared_ptr<parsing_node>> kids;
+
+        // https://stackoverflow.com/questions/59508678/c-print-tree-not-necessarily-binary-in-a-pretty-way-to-stdout
+        void print_sub_tree(const string &prefix) {
+            if(kids.empty()) return;
+            cout << prefix;
+            size_t n_kids = kids.size();
+            cout << (n_kids > 1 ? "├── " : "");
+
+            for (size_t i = 0; i < n_kids; ++i) {
+                shared_ptr<parsing_node> kid = kids[i];
+                if (i < n_kids - 1) {
+                    if (i > 0) { // added fix
+                    cout << prefix << "├── "; // added fix
+                    }
+                    bool printStrand = n_kids > 1 && !kid->kids.empty();
+                    string newPrefix = prefix + (printStrand ? "│\t" : "\t");
+                    cout << kid->value << "\n";
+                    kid->print_sub_tree(newPrefix);
+                } else {
+                    cout << (n_kids > 1 ? prefix : "") << "└── ";
+                    cout << kid->value << "\n";
+                    kid->print_sub_tree(prefix + "\t");
+                }
+            }
+        }
+
+        void print() {
+            cout << value << "\n";
+            print_sub_tree("");
+            cout << "\n";
+        }
     };
 
     class parser{
@@ -214,7 +245,7 @@ namespace xd {
             vector<token> tokens = input_tokens;
             int index = 0;
             set(ast, tokens, index);
-            print(ast);
+            ast->print();
         }
 
         void set_input_tokens(vector<token> tokens) {

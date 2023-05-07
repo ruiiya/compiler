@@ -70,6 +70,7 @@ RULES
 <constant> : integer_constant 
 <constant> : float_constant 
 <constant> : boolean_constant 
+<constant> : string_constant
 
 <unary_operator> : + 
 <unary_operator> : - 
