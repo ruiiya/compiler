@@ -1,0 +1,144 @@
+TERMINAL
+( ) { } * + - / % , < > <= >= = == != ; [ ]
+identifier integer_constant float_constant boolean_constant string_constant
+for while break continue return else float if int void boolean
+END
+
+NON_TERMINAL
+<primary_expression> <constant> <unary_operator> <unary_expression> <type_specifier> 
+<multiplicative_expression> <additive_expression> <relational_expression> <equality_expression> 
+<assignment_expression>  <expression> <declarator_tail> <declaration> <init_declarator_list>  
+<init_declarator> <initializer> <declarator> <direct_declarator> <declarator_int> <statement> 
+<compound_statement> <block_item_list> <block_item> <expression_statement> <selection_statement> <program>
+<primary_expression_tail> <for_statement> <while_statement> <expression_question> <break_statement> 
+<continue_statement> <return_statement> <argument_list> <argument> <parameter_list> <parameter> 
+<argument_list_temp> <assignment_expression_temp> <multiplicative_expression_temp> 
+<init_declarator_list_temp> <relational_expression_temp> <equality_expression_temp> <init_declarator_temp>
+<parameter_list_temp> <additive_expression_temp> <selection_statement_temp> <block_item_list_temp>
+END
+
+START
+<program>
+END
+
+RULES
+
+<program> : <type_specifier> identifier ( <parameter_list> ) <compound_statement>
+
+
+<parameter> : <type_specifier> <declarator> 
+<parameter_list_temp> : , <parameter> <parameter_list_temp> 
+<parameter_list_temp> : EPSILON 
+<parameter_list> : <parameter> <parameter_list_temp> 
+<parameter_list> : <parameter_list_temp> 
+
+<argument> : <expression> 
+<argument_list_temp> : , <argument> <argument_list_temp> 
+<argument_list_temp> : EPSILON 
+<argument_list> : <argument> <argument_list_temp> 
+<argument_list> : <argument_list_temp> 
+
+<declaration> : <type_specifier> <init_declarator_list> ; 
+<init_declarator_list_temp> : , <init_declarator> <init_declarator_list_temp> 
+<init_declarator_list_temp> : EPSILON 
+<init_declarator_list> : <init_declarator> <init_declarator_list_temp> 
+<init_declarator_list> : <init_declarator_list_temp> 
+<init_declarator> : <declarator> <init_declarator_temp> 
+<init_declarator_temp> : EPSILON 
+<init_declarator_temp> : = <initializer> 
+<type_specifier> : void 
+<type_specifier> : int 
+<type_specifier> : float 
+<type_specifier> : boolean 
+<declarator_tail> : [ <declarator_int> ] 
+<declarator_tail> : EPSILON 
+<declarator_int> : integer_constant 
+<declarator_int> : EPSILON 
+<declarator> : <direct_declarator> <declarator_tail> 
+<direct_declarator> : identifier 
+<direct_declarator> : ( <declarator> ) 
+<initializer> : <assignment_expression> 
+
+
+<primary_expression_tail> : [ <expression> ] 
+<primary_expression_tail> : ( <argument_list> ) 
+<primary_expression_tail> : EPSILON 
+<primary_expression> : identifier <primary_expression_tail> 
+<primary_expression> : <constant> 
+<primary_expression> : ( <expression> ) 
+
+<constant> : integer_constant 
+<constant> : float_constant 
+<constant> : boolean_constant 
+
+<unary_operator> : + 
+<unary_operator> : - 
+<unary_expression> : <primary_expression> 
+<unary_expression> : <unary_operator> <primary_expression> 
+
+<multiplicative_expression_temp> : * <unary_expression> <multiplicative_expression_temp> 
+<multiplicative_expression_temp> : / <unary_expression> <multiplicative_expression_temp> 
+<multiplicative_expression_temp> : EPSILON 
+<multiplicative_expression> : <unary_expression> <multiplicative_expression_temp> 
+
+<additive_expression_temp> : + <multiplicative_expression> <additive_expression_temp> 
+<additive_expression_temp> : - <multiplicative_expression> <additive_expression_temp> 
+<additive_expression_temp> : EPSILON 
+<additive_expression> : <multiplicative_expression> <additive_expression_temp> 
+
+<relational_expression_temp> : < <additive_expression> <relational_expression_temp> 
+<relational_expression_temp> : > <additive_expression> <relational_expression_temp> 
+<relational_expression_temp> : <= <additive_expression> <relational_expression_temp> 
+<relational_expression_temp> : >= <additive_expression> <relational_expression_temp> 
+<relational_expression_temp> : EPSILON 
+<relational_expression> : <additive_expression> <relational_expression_temp> 
+
+<equality_expression_temp> : == <relational_expression> <equality_expression_temp> 
+<equality_expression_temp> : != <relational_expression> <equality_expression_temp> 
+<equality_expression_temp> : EPSILON 
+<equality_expression> : <relational_expression> <equality_expression_temp> 
+
+<assignment_expression_temp> : = <equality_expression> <assignment_expression_temp> 
+<assignment_expression_temp> : EPSILON 
+<assignment_expression> : <equality_expression> <assignment_expression_temp> 
+
+<expression> : <assignment_expression> 
+
+<expression_question> : <expression> 
+<expression_question> : EPSILON 
+
+
+<statement> : <compound_statement> 
+<statement> : <expression_statement> 
+<statement> : <selection_statement> 
+<statement> : <for_statement> 
+<statement> : <while_statement> 
+<statement> : <break_statement> 
+<statement> : <continue_statement> 
+<statement> : <return_statement> 
+
+<compound_statement> : { <block_item_list> } 
+<block_item> : <declaration> 
+<block_item> : <statement> 
+<block_item_list> : <block_item> <block_item_list_temp> 
+<block_item_list> : EPSILON 
+<block_item_list_temp> : EPSILON 
+<block_item_list_temp> : <block_item_list> 
+
+<expression_statement> : <expression> ; 
+<expression_statement> : ; 
+
+<return_statement> : return <expression_question> ; 
+
+<continue_statement> : continue ; 
+
+<break_statement> : break ; 
+
+<selection_statement> : if ( <expression> ) <compound_statement> <selection_statement_temp> 
+<selection_statement_temp> : EPSILON 
+<selection_statement_temp> : else <statement>
+
+<for_statement> : for ( <expression_question> ; <expression_question> ; <expression_question> ) <statement>
+
+<while_statement> : while ( <expression> ) <statement>
+END
