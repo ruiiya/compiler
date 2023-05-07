@@ -23,7 +23,7 @@ END
 
 RULES
 
-<program> : <type_specifier> identifier ( <parameter_list> ) <compound_statement>
+<program> : <type_specifier> identifier ( ) <compound_statement>
 
 
 <parameter> : <type_specifier> <declarator> 

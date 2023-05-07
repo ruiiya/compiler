@@ -8,7 +8,7 @@ using namespace xd;
 int main(int argc, char const *argv[])
 {
 
-    freopen("file.txt","w",stdout);
+    freopen("sample.vcps","w",stdout);
 
     xd::grammar_parser grammar_parser("grammar.dat");
     if(!grammar_parser.parse()) {
