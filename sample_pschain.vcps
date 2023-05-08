@@ -1,0 +1,22 @@
+<program>
+├── void
+├── main
+├── (
+├── )
+└── <compound_statement>
+	├── {
+	├── <expression_statement>
+	│	├── <additive_expression>
+	│	│	├── 1
+	│	│	└── <additive_expression_temp>
+	│	│		├── +
+	│	│		├── 2
+	│	│		└── <additive_expression_temp>
+	│	│			├── -
+	│	│			├── 3
+	│	│			└── <additive_expression_temp>
+	│	│				├── +
+	│	│				└── 4
+	│	└── ;
+	└── }
+

@@ -5,10 +5,13 @@
 using namespace std;
 using namespace xd;
 
+#define NAME "sample"
+
 int main(int argc, char const *argv[])
 {
 
-    freopen("sample.vcps","w",stdout);
+    ofstream ofs(NAME".vcps");
+    ifstream ifs(NAME".vc");
 
     xd::grammar_parser grammar_parser("grammar.dat");
     if(!grammar_parser.parse()) {
@@ -41,7 +44,7 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    ifstream ifs("sample.vc");
+    
 
     lexer lexer;
     token token_;
@@ -85,7 +88,7 @@ int main(int argc, char const *argv[])
     ll1_parser.build_tree();
     ll1_parser.remove_epsilon_node();
     ll1_parser.remove_one_kid_node();
-    ll1_parser.print_node();
+    ll1_parser.print_node(ofs);
 
     return 0;
 }

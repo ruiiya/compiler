@@ -1,0 +1,16 @@
+<program>
+├── void
+├── main
+├── (
+├── )
+└── <compound_statement>
+	├── {
+	├── <expression_statement>
+	│	├── <assignment_expression>
+	│	│	├── i
+	│	│	└── <assignment_expression_temp>
+	│	│		├── =
+	│	│		└── 1
+	│	└── ;
+	└── }
+
