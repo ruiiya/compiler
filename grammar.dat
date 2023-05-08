@@ -1,5 +1,5 @@
 TERMINAL
-( ) { } * + - / % , < > <= >= = == != ; [ ]
+( ) { } * + - / % , < > <= >= = == ! != ; [ ]
 identifier integer_constant float_constant boolean_constant string_constant
 for while break continue return else float if int void boolean
 END
@@ -74,6 +74,7 @@ RULES
 
 <unary_operator> : + 
 <unary_operator> : - 
+<unary_operator> : !
 <unary_expression> : <primary_expression> 
 <unary_expression> : <unary_operator> <primary_expression> 
 

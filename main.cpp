@@ -41,8 +41,25 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    vector<token> tokens({{"void", "void"}, {"identifier", "main"}, {"(", "("}, {")", ")"}, {"{", "{"}, {"integer_constant", "1"}, {"+", "+"}, {"integer_constant", "2"}, {"-", "-"}, {"integer_constant", "3"}, {"+", "+"}, {"integer_constant", "4"}, {"/", "/"}, {"integer_constant", "5"}, {";", ";"}, {"}", "}"}, 
-    });
+    ifstream ifs("sample.vc");
+
+    lexer lexer;
+    token token_;
+
+    vector<token> tokens;
+
+    while((token_ = lexer.get_token(ifs, grammar_parser.get_terminals())).token_type != "__EOF__") {
+        if(token_.token_type == "__COMMENT__") {
+            continue;
+        }
+        if(token_.token_type == "__ERROR__") {
+            cout << lexer.get_error();
+            return -1;
+        }
+        tokens.push_back(token_);
+        // cout << token_.value << " ";
+    }
+
 
     parser ll1_parser;
     ll1_parser.set_input_tokens(tokens);
