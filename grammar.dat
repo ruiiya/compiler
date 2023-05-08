@@ -15,6 +15,7 @@ NON_TERMINAL
 <argument_list_temp> <assignment_expression_temp> <multiplicative_expression_temp> 
 <init_declarator_list_temp> <relational_expression_temp> <equality_expression_temp> <init_declarator_temp>
 <parameter_list_temp> <additive_expression_temp> <selection_statement_temp> <block_item_list_temp>
+<parameter_list_question> <argument_list_question>
 END
 
 START
@@ -23,7 +24,7 @@ END
 
 RULES
 
-<program> : <type_specifier> identifier ( ) <compound_statement>
+<program> : <type_specifier> identifier ( <parameter_list_question> ) <compound_statement>
 
 
 <parameter> : <type_specifier> <declarator> 
@@ -31,12 +32,16 @@ RULES
 <parameter_list_temp> : EPSILON 
 <parameter_list> : <parameter> <parameter_list_temp> 
 <parameter_list> : <parameter_list_temp> 
+<parameter_list_question> : <parameter_list>
+<parameter_list_question> : EPSILON
 
 <argument> : <expression> 
 <argument_list_temp> : , <argument> <argument_list_temp> 
 <argument_list_temp> : EPSILON 
 <argument_list> : <argument> <argument_list_temp> 
 <argument_list> : <argument_list_temp> 
+<argument_list_question> : <argument_list>
+<argument_list_question> : EPSILON
 
 <declaration> : <type_specifier> <init_declarator_list> ; 
 <init_declarator_list_temp> : , <init_declarator> <init_declarator_list_temp> 
@@ -57,11 +62,11 @@ RULES
 <declarator> : <direct_declarator> <declarator_tail> 
 <direct_declarator> : identifier 
 <direct_declarator> : ( <declarator> ) 
-<initializer> : <assignment_expression> 
+<initializer> : <expression> 
 
 
 <primary_expression_tail> : [ <expression> ] 
-<primary_expression_tail> : ( <argument_list> ) 
+<primary_expression_tail> : ( <argument_list_question> ) 
 <primary_expression_tail> : EPSILON 
 <primary_expression> : identifier <primary_expression_tail> 
 <primary_expression> : <constant> 
