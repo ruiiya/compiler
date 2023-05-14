@@ -9,11 +9,27 @@ using namespace xd;
 
 int main(int argc, char const *argv[])
 {
+    string input_filename = "sample.vc";
+    string output_filename = "sample.vcps";
+    string grammar_filename = "grammar.dat";
 
-    ofstream ofs(NAME".vcps");
-    ifstream ifs(NAME".vc");
+    if(argc > 1) {
+        input_filename = argv[1];
+        if(argc > 2) {
+            output_filename = argv[2];
+            if(argc > 3) {
+                grammar_filename = argv[3];
+            }
+        }
+    }
+    ifstream ifs(input_filename);
+    if(!ifs.good()){
+        cout << "cannot read input file";
+        return -1;
+    }
+    ofstream ofs(output_filename);
 
-    xd::grammar_parser grammar_parser("grammar.dat");
+    xd::grammar_parser grammar_parser(grammar_filename);
     if(!grammar_parser.parse()) {
         cout << grammar_parser.get_error();
         return -1;
