@@ -17,7 +17,7 @@ NON_TERMINAL
 <parameter_list_temp> <additive_expression_temp> <selection_statement_temp> <block_item_list_temp>
 <parameter_list_question> <argument_list_question> <func_decl> <program_tail>
 <conditional_and_expression> <conditional_and_expression_temp> <conditional_or_expression> 
-<conditional_or_expression_temp> <decl_tail>
+<conditional_or_expression_temp>
 END
 
 START
@@ -26,12 +26,12 @@ END
 
 RULES
 
-<program> : <type_specifier> <decl_tail> <program_tail>
-<program_tail> : <decl_tail> <program_tail>
+<program> : <func_decl> <program_tail>
+<program_tail> : <func_decl> <program_tail>
 <program_tail> : EPSILON
 
-<decl_tail> : identifier ( <parameter_list_question> ) <compound_statement>
-<decl_tail> : <init_declarator_list> ; 
+<func_decl> : <type_specifier> identifier ( <parameter_list_question> ) <compound_statement>
+
 
 <parameter> : <type_specifier> <declarator> 
 <parameter_list_temp> : , <parameter> <parameter_list_temp> 
