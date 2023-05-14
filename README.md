@@ -16,6 +16,7 @@
 ## Thực nghiệm
 ### Cài đặt
 Ngôn ngữ sử dụng: C++17 (MSYS2 MinGW64).
+
 Chạy lệnh để dịch chương trình.
 ```
 g++ -std=c++17 -g main.cpp -o main 
