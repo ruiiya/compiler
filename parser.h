@@ -4,6 +4,7 @@
 #include "lexer.h"
 #include <stack>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -160,34 +161,29 @@ namespace xd {
             }
 
             if(!is_complete()) {
-                if(table_[top_symbol][current_token.token_type] == SYNCH_TOKEN) {
-                    errors.push_back(error_message(current_token.token_type));
-                    stack_.pop();
-                } else {
-                    auto terminals = parsing_table_.get_terminals();
+                auto terminals = parsing_table_.get_terminals();
 
-                    if(top_symbol == current_token.token_type) {
-                        stack_.pop();
-                        jump();
-                    } else if(find(terminals.begin(), terminals.end(), top_symbol) != terminals.end() &&
-                              find(terminals.begin(), terminals.end(), current_token.token_type) != terminals.end()) {
-                        errors.push_back(error_message(current_token.token_type));
-                        jump();
-                    } else {
-                        auto prod_rule = parsing_table_.get_entry(top_symbol, current_token.token_type);
-                        auto productions = parsing_table_.get_productions();
-                        auto req_rule = productions[prod_rule.first].get_rules()[prod_rule.second];
-                        auto entities = req_rule.get_entities();
-                        reverse(entities.begin(), entities.end());
-                        stack_.pop();
-                        
-                        for(auto& entity : entities) {
-                            if(entity != EPSILON) {
-                                stack_.push(entity);
-                            }
+                if(top_symbol == current_token.token_type) {
+                    stack_.pop();
+                    jump();
+                } else if(find(terminals.begin(), terminals.end(), top_symbol) != terminals.end() &&
+                            find(terminals.begin(), terminals.end(), current_token.token_type) != terminals.end()) {
+                    errors.push_back(error_message(current_token.token_type));
+                    jump();
+                } else {
+                    auto prod_rule = parsing_table_.get_entry(top_symbol, current_token.token_type);
+                    auto productions = parsing_table_.get_productions();
+                    auto req_rule = productions[prod_rule.first].get_rules()[prod_rule.second];
+                    auto entities = req_rule.get_entities();
+                    reverse(entities.begin(), entities.end());
+                    stack_.pop();
+                    
+                    for(auto& entity : entities) {
+                        if(entity != EPSILON) {
+                            stack_.push(entity);
                         }
-                        history.push_back((prod_rule.first << 16U) ^ prod_rule.second);
                     }
+                    history.push_back((prod_rule.first << 16U) ^ prod_rule.second);
                 }
             }
         }

@@ -15,7 +15,7 @@ NON_TERMINAL
 <argument_list_temp> <assignment_expression_temp> <multiplicative_expression_temp> 
 <init_declarator_list_temp> <relational_expression_temp> <equality_expression_temp> <init_declarator_temp>
 <parameter_list_temp> <additive_expression_temp> <selection_statement_temp> <block_item_list_temp>
-<parameter_list_question> <argument_list_question>
+<parameter_list_question> <argument_list_question> <func_decl> <program_tail>
 END
 
 START
@@ -24,8 +24,11 @@ END
 
 RULES
 
-<program> : <type_specifier> identifier ( <parameter_list_question> ) <compound_statement>
+<program> : <func_decl> <program_tail>
+<program_tail> : <func_decl> <program_tail>
+<program_tail> : EPSILON
 
+<func_decl> : <type_specifier> identifier ( <parameter_list_question> ) <compound_statement>
 
 <parameter> : <type_specifier> <declarator> 
 <parameter_list_temp> : , <parameter> <parameter_list_temp> 

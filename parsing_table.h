@@ -9,7 +9,6 @@ using namespace std;
 namespace xd {
     using table = unordered_map<string, unordered_map<string, string>>;
 
-    const string SYNCH_TOKEN = "__synch__";
     const string ERROR_TOKEN = "__error__";
 
     class parsing_table {
@@ -40,17 +39,6 @@ namespace xd {
                 }
             }
 
-            for(auto& non_terminal : non_terminals) {
-                if(follows.count(non_terminal) != 0U) {
-                    for(const auto& symbol : follows[non_terminal]) {
-                        if(table_[non_terminal][symbol] != ERROR_TOKEN) {
-                            errors.push_back(error_message(non_terminal, symbol));
-                        }
-                        table_[non_terminal][symbol] = SYNCH_TOKEN;
-                    }
-                }
-            }
-
             for (size_t prod_no = 0; prod_no < productions.size(); prod_no++) {
                 string parent = productions[prod_no].get_parent();
                 auto& rules = productions[prod_no].get_rules();
@@ -60,7 +48,7 @@ namespace xd {
 
                     if(find(terminals.begin(), terminals.end(), first_entity) != terminals.end()) {
                         string entry = table_[parent][first_entity];
-                        if(entry != ERROR_TOKEN && entry != SYNCH_TOKEN) {
+                        if(entry != ERROR_TOKEN) {
                             errors.push_back(error_message(parent, first_entity));
                         } 
 
@@ -71,7 +59,7 @@ namespace xd {
                             for(const auto& symbol : firsts[first_entity]) {
                                 if(symbol != EPSILON) {
                                     string entry = table_[parent][symbol];
-                                    if(entry != ERROR_TOKEN && entry != SYNCH_TOKEN) {
+                                    if(entry != ERROR_TOKEN) {
                                         errors.push_back(error_message(parent, symbol));
                                     } 
 
@@ -83,7 +71,7 @@ namespace xd {
                         if (follows.count(parent) != 0U) {
                             for (auto &symbol : follows[parent]) {
                                 std::string entry = table_[parent][symbol];
-                                if ((entry != ERROR_TOKEN) && (entry != SYNCH_TOKEN)) {
+                                if (entry != ERROR_TOKEN) {
                                 errors.push_back(error_message(parent, symbol));
                                 }
 
