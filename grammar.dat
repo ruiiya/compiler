@@ -1,5 +1,5 @@
 TERMINAL
-( ) { } * + - / % , < > <= >= = == ! != ; [ ]
+( ) { } * + - / % , < > <= >= = == ! != ; [ ] && ||
 identifier integer_constant float_constant boolean_constant string_constant
 for while break continue return else float if int void boolean
 END
@@ -16,6 +16,8 @@ NON_TERMINAL
 <init_declarator_list_temp> <relational_expression_temp> <equality_expression_temp> <init_declarator_temp>
 <parameter_list_temp> <additive_expression_temp> <selection_statement_temp> <block_item_list_temp>
 <parameter_list_question> <argument_list_question> <func_decl> <program_tail>
+<conditional_and_expression> <conditional_and_expression_temp> <conditional_or_expression> 
+<conditional_or_expression_temp>
 END
 
 START
@@ -109,9 +111,19 @@ RULES
 <equality_expression_temp> : EPSILON 
 <equality_expression> : <relational_expression> <equality_expression_temp> 
 
-<assignment_expression_temp> : = <equality_expression> <assignment_expression_temp> 
+<conditional_and_expression_temp> : && <equality_expression> <conditional_and_expression_temp>
+<conditional_and_expression_temp> : EPSILON 
+<conditional_and_expression> : <equality_expression> <conditional_and_expression_temp>
+
+<conditional_or_expression_temp> : || <conditional_and_expression> <conditional_or_expression_temp>
+<conditional_or_expression_temp> : EPSILON 
+<conditional_or_expression> : <conditional_and_expression> <conditional_or_expression_temp>
+
+<assignment_expression_temp> : = <conditional_or_expression> <assignment_expression_temp> 
 <assignment_expression_temp> : EPSILON 
-<assignment_expression> : <equality_expression> <assignment_expression_temp> 
+<assignment_expression> : <conditional_or_expression> <assignment_expression_temp> 
+
+
 
 <expression> : <assignment_expression> 
 

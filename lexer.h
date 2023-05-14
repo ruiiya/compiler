@@ -136,7 +136,7 @@ namespace xd
 
             if(ispunct(last_char)) {
                 token tok;
-                static const vector<char> unary_punct({'(', ')', '{', '}', '*', '+', '-', '%', ',', ';'});
+                static const vector<char> unary_punct({'(', ')', '[', ']', '{', '}', '*', '+', '-', '%', ',', ';'});
                 if(find(unary_punct.begin(), unary_punct.end(), last_char) != unary_punct.end()) {
 
                     tok = token(string(1,last_char), string(1,last_char));
@@ -148,6 +148,26 @@ namespace xd
                     string literal_string = "";
                     switch (last_char)
                     {
+                    case '&':
+                        ifs.get(last_char);
+                        if(last_char == '&') {
+                            ifs.get(last_char);
+                            tok = token("&&", "&&");
+                            break;
+                        }
+                        error = "Unexpected Token";
+                        tok = token("__ERROR__", "__ERROR__");
+                        break;
+                    case '|':
+                        ifs.get(last_char);
+                        if(last_char == '|') {
+                            ifs.get(last_char);
+                            tok = token("||", "||");
+                            break;
+                        }
+                        error = "Unexpected Token";
+                        tok = token("__ERROR__", "__ERROR__");
+                        break;
                     case '=':
                         ifs.get(last_char);
                         if(last_char == '=') {
