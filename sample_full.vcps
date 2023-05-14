@@ -1,0 +1,55 @@
+<program>
+├── <func_decl>
+│	├── <type_specifier>
+│	│	└── void
+│	├── main
+│	├── (
+│	├── <parameter_list_question>
+│	│	└── EPSILON
+│	├── )
+│	└── <compound_statement>
+│		├── {
+│		├── <block_item_list>
+│		│	├── <block_item>
+│		│	│	└── <declaration>
+│		│	│		├── <type_specifier>
+│		│	│		│	└── int
+│		│	│		├── <init_declarator_list>
+│		│	│		│	├── <init_declarator>
+│		│	│		│	│	├── <declarator>
+│		│	│		│	│	│	├── <direct_declarator>
+│		│	│		│	│	│	│	└── a
+│		│	│		│	│	│	└── <declarator_tail>
+│		│	│		│	│	│		└── EPSILON
+│		│	│		│	│	└── <init_declarator_temp>
+│		│	│		│	│		├── =
+│		│	│		│	│		└── <initializer>
+│		│	│		│	│			└── <expression>
+│		│	│		│	│				└── <assignment_expression>
+│		│	│		│	│					├── <equality_expression>
+│		│	│		│	│					│	├── <relational_expression>
+│		│	│		│	│					│	│	├── <additive_expression>
+│		│	│		│	│					│	│	│	├── <multiplicative_expression>
+│		│	│		│	│					│	│	│	│	├── <unary_expression>
+│		│	│		│	│					│	│	│	│	│	└── <primary_expression>
+│		│	│		│	│					│	│	│	│	│		└── <constant>
+│		│	│		│	│					│	│	│	│	│			└── 1
+│		│	│		│	│					│	│	│	│	└── <multiplicative_expression_temp>
+│		│	│		│	│					│	│	│	│		└── EPSILON
+│		│	│		│	│					│	│	│	└── <additive_expression_temp>
+│		│	│		│	│					│	│	│		└── EPSILON
+│		│	│		│	│					│	│	└── <relational_expression_temp>
+│		│	│		│	│					│	│		└── EPSILON
+│		│	│		│	│					│	└── <equality_expression_temp>
+│		│	│		│	│					│		└── EPSILON
+│		│	│		│	│					└── <assignment_expression_temp>
+│		│	│		│	│						└── EPSILON
+│		│	│		│	└── <init_declarator_list_temp>
+│		│	│		│		└── EPSILON
+│		│	│		└── ;
+│		│	└── <block_item_list_temp>
+│		│		└── EPSILON
+│		└── }
+└── <program_tail>
+	└── EPSILON
+

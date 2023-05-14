@@ -153,6 +153,7 @@ namespace xd
                         if(last_char == '=') {
                             ifs.get(last_char);
                             tok = token("==", "==");
+                            break;
                         }
                         tok =  token("=", "=");
                         break;
@@ -162,6 +163,7 @@ namespace xd
                         if(last_char == '=') {
                             ifs.get(last_char);
                             tok =  token("!=", "!=");
+                            break;
                         }
                         tok =  token("!", "!");
                         break;
@@ -171,6 +173,7 @@ namespace xd
                         if(last_char == '=') {
                             ifs.get(last_char);
                             tok =  token(">=", ">=");
+                            break;
                         }
                         tok =  token(">", ">");
                         break;
@@ -180,6 +183,7 @@ namespace xd
                         if(last_char == '=') {
                             ifs.get(last_char);
                             tok =  token("<=", "<=");
+                            break;
                         }
                         tok =  token("<", "<");
                         break;
@@ -208,8 +212,10 @@ namespace xd
                             }while(!ifs.eof() && last_char != '\n' && last_char != '\r');
                             ifs.get(last_char);
                             tok = token("__COMMENT__", "__COMMENT__");
+                            break;
                         } else {
                             tok = token("/", "/");
+                            break;
                         }
                         break;
                     

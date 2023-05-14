@@ -11,14 +11,16 @@ int main(int argc, char const *argv[])
 {
     string input_filename = "sample.vc";
     string output_filename = "sample.vcps";
+    string output_filename_non_reduce = "sample_full.vcps";
     string grammar_filename = "grammar.dat";
 
     if(argc > 1) {
-        input_filename = argv[1];
+        input_filename = string(argv[1]) + ".vc";
         if(argc > 2) {
-            output_filename = argv[2];
+            output_filename = string(argv[2]) + ".vcps";
+            output_filename_non_reduce = string(argv[2]) + "_full.vcps";
             if(argc > 3) {
-                grammar_filename = argv[3];
+                grammar_filename = string(argv[3]) + ".dat";
             }
         }
     }
@@ -28,6 +30,7 @@ int main(int argc, char const *argv[])
         return -1;
     }
     ofstream ofs(output_filename);
+    ofstream ofs2(output_filename_non_reduce);
 
     xd::grammar_parser grammar_parser(grammar_filename);
     if(!grammar_parser.parse()) {
@@ -102,6 +105,7 @@ int main(int argc, char const *argv[])
     }
 
     ll1_parser.build_tree();
+    ll1_parser.print_node(ofs2);
     ll1_parser.remove_epsilon_node();
     ll1_parser.remove_one_kid_node();
     ll1_parser.print_node(ofs);

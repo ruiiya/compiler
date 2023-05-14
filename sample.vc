@@ -1,4 +1,3 @@
-//test constant
 void main() {
     int a = 1;
 }

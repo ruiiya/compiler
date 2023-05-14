@@ -30,6 +30,7 @@ RULES
 
 <func_decl> : <type_specifier> identifier ( <parameter_list_question> ) <compound_statement>
 
+
 <parameter> : <type_specifier> <declarator> 
 <parameter_list_temp> : , <parameter> <parameter_list_temp> 
 <parameter_list_temp> : EPSILON 
