@@ -1,0 +1,18 @@
+<program>
+└── <func_decl>
+	├── void
+	├── main
+	├── (
+	├── )
+	└── <compound_statement>
+		├── {
+		├── <declaration>
+		│	├── int
+		│	├── <init_declarator>
+		│	│	├── a
+		│	│	└── <init_declarator_temp>
+		│	│		├── =
+		│	│		└── 1
+		│	└── ;
+		└── }
+
