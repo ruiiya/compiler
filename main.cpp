@@ -12,6 +12,7 @@ int main(int argc, char const *argv[])
     string input_filename = "sample.vc";
     string output_filename = "sample.vcps";
     string output_filename_non_reduce = "sample_full.vcps";
+    string output_filename_bracket = "sample_bracket.vcps";
     string grammar_filename = "grammar.dat";
 
     if(argc > 1) {
@@ -19,6 +20,7 @@ int main(int argc, char const *argv[])
         if(argc > 2) {
             output_filename = string(argv[2]) + ".vcps";
             output_filename_non_reduce = string(argv[2]) + "_full.vcps";
+            output_filename_bracket = string(argv[2]) + "_bracket.vcps";
             if(argc > 3) {
                 grammar_filename = string(argv[3]) + ".dat";
             }
@@ -31,6 +33,7 @@ int main(int argc, char const *argv[])
     }
     ofstream ofs(output_filename);
     ofstream ofs2(output_filename_non_reduce);
+    ofstream ofs3(output_filename_bracket);
 
     xd::grammar_parser grammar_parser(grammar_filename);
     if(!grammar_parser.parse()) {
@@ -109,6 +112,7 @@ int main(int argc, char const *argv[])
     ll1_parser.remove_epsilon_node();
     ll1_parser.remove_one_kid_node();
     ll1_parser.print_node(ofs);
+    ll1_parser.print_bracket(ofs3);
 
     return 0;
 }

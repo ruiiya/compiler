@@ -244,6 +244,30 @@ namespace xd {
             ast->print(ofs);
         }
 
+        string gen_bracket(shared_ptr<parsing_node> node) {
+            auto& terminals = parsing_table_.get_terminals();
+            string str = "( ";
+            for(shared_ptr<parsing_node>& kid_node : node->kids) {
+                if(find(terminals.begin(), terminals.end(), kid_node->token_type) != terminals.end()) {
+                    if(kid_node->value == "(") {
+                        str += "\\( ";
+                    } else if(kid_node->value == ")") {
+                        str += "\\) ";
+                    } else {
+                        str += kid_node->value + " ";
+                    }
+                } else {
+                    str += gen_bracket(kid_node);
+                }
+                
+            }
+            return str + ") ";
+        }
+
+        void print_bracket(ofstream& ofs) {
+            ofs << gen_bracket(ast);
+        }
+
         void set_input_tokens(vector<token> tokens) {
             input_tokens = std::move(tokens);
         }
